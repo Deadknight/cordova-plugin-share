@@ -39,7 +39,12 @@ public class Share extends CordovaPlugin {
             else
                 sendIntent.setAction(Intent.ACTION_VIEW);
             sendIntent.putExtra(Intent.EXTRA_TEXT, text);
-        } else {
+            sendIntent.setType(mimetype);
+        } 
+        else if(mimetype.equals("application/browser")) {
+            sendIntent.setData(Uri.parse(text));
+        }
+        else {
             sendIntent.setAction(Intent.ACTION_SEND);
             Context context = this.cordova.getActivity().getApplicationContext();
             Uri fileUri = FileProvider.getUriForFile(context, "com.pinkbike.trailforks.provider", new File(Uri.parse(text).getPath()));
@@ -47,8 +52,8 @@ public class Share extends CordovaPlugin {
             sendIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
 
             context.grantUriPermission("com.garmin.android.apps.connectmobile", fileUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            sendIntent.setType(mimetype);
         }
-        sendIntent.setType(mimetype);
         cordova.getActivity().startActivity(Intent.createChooser(sendIntent, title));
         callbackContext.success();
         } catch(Error e) {
