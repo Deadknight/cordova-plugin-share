@@ -23,13 +23,14 @@ public class Share extends CordovaPlugin {
             String text = args.getString(0);
             String title = args.getString(1);
             String mimetype = args.getString(2);
-            this.share(text, title, mimetype, callbackContext);
+            int action = args.getInt(3);
+            this.share(text, title, mimetype, action, callbackContext);
             return true;
         }
         return false;
     }
 
-    private void share(String text, String title, String mimetype, CallbackContext callbackContext) {
+    private void share(String text, String title, String mimetype, int action, CallbackContext callbackContext) {
       try {
         Intent sendIntent = new Intent();
         if (mimetype.equals("text/plain")) {
