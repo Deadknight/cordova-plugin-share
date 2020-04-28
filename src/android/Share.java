@@ -33,11 +33,11 @@ public class Share extends CordovaPlugin {
     private void share(String text, String title, String mimetype, int actionType, CallbackContext callbackContext) {
       try {
         Intent sendIntent = new Intent();
+        if(actionType == 0)
+            sendIntent.setAction(Intent.ACTION_SEND);
+        else
+            sendIntent.setAction(Intent.ACTION_VIEW);
         if (mimetype.equals("text/plain")) {
-            if(actionType == 0)
-                sendIntent.setAction(Intent.ACTION_SEND);
-            else
-                sendIntent.setAction(Intent.ACTION_VIEW);
             sendIntent.putExtra(Intent.EXTRA_TEXT, text);
             sendIntent.setType(mimetype);
         } 
@@ -45,13 +45,12 @@ public class Share extends CordovaPlugin {
             sendIntent.setData(Uri.parse(text));
         }
         else {
-            sendIntent.setAction(Intent.ACTION_SEND);
             Context context = this.cordova.getActivity().getApplicationContext();
-            Uri fileUri = FileProvider.getUriForFile(context, "com.pinkbike.trailforks.provider", new File(Uri.parse(text).getPath()));
+            Uri fileUri = FileProvider.getUriForFile(context, "", new File(Uri.parse(text).getPath()));
             sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             sendIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
 
-            context.grantUriPermission("com.garmin.android.apps.connectmobile", fileUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.grantUriPermission("", fileUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             sendIntent.setType(mimetype);
         }
         cordova.getActivity().startActivity(Intent.createChooser(sendIntent, title));
