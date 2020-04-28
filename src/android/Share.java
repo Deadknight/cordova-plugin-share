@@ -34,7 +34,10 @@ public class Share extends CordovaPlugin {
       try {
         Intent sendIntent = new Intent();
         if (mimetype.equals("text/plain")) {
-            sendIntent.setAction(Intent.ACTION_SEND);
+            if(action == 0)
+                sendIntent.setAction(Intent.ACTION_SEND);
+            else
+                sendIntent.setAction(Intent.ACTION_VIEW);
             sendIntent.putExtra(Intent.EXTRA_TEXT, text);
         } else {
             sendIntent.setAction(Intent.ACTION_SEND);
