@@ -1,4 +1,4 @@
-package com.pinkbike;
+package com.dk;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
