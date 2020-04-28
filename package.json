@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-share-pinkbike",
+  "name": "cordova-plugin-share-dk",
   "version": "1.0.0",
   "description": "Cordova Plugin to open native share popup in Android and iOS",
   "cordova": {
-    "id": "cordova-plugin-share-pinkbike",
+    "id": "cordova-plugin-share-dk",
     "platforms": [
       "ios",
       "android"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pinkbike/cordova-plugin-share"
+    "url": "https://github.com/Deadknight/cordova-plugin-share"
   },
   "keywords": [
     "ecosystem:cordova",
